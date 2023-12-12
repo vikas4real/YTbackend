@@ -7,10 +7,10 @@ const connectDB = async () => {
       `${process.env.DATABASE_URL}/${DB_NAME}`
     );
     console.log(
-      `DATABASE CONNECTED !! DB HOST:${connectionInstance.connection.host}`
+      `DATABASE CONNECTED <> DB HOST:${connectionInstance.connection.host}`
     );
   } catch (error) {
-    console.error('ERROR:', error);
+    console.error('DATABASE CONNECTION FAILED:', error);
     process.exit(1);
   }
 };
