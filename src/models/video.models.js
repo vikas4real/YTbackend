@@ -3,11 +3,11 @@ import mongoose, { Schema } from 'mongoose';
 const VideoSchema = new Schema(
   {
     videoFile: {
-      type: String, //Cloudniry URL
+      type: String, //Cloudinary URL
       required: true,
     },
     thumbnailImage: {
-      type: String, //Cloudniry URL
+      type: String, //Cloudinary URL
       required: true,
     },
     title: {
@@ -19,7 +19,7 @@ const VideoSchema = new Schema(
       required: true,
     },
     duration: {
-      type: Number, //will come from cloudniry
+      type: Number, //will come from Cloudinary
       required: true,
     },
     views: {
