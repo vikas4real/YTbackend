@@ -6,6 +6,11 @@ import {
   loginUser,
   logoutUser,
   refreshAccessToken,
+  changePassword,
+  updateAccountDetails,
+  updateAvatarImage,
+  updateCoverImage,
+  getCurrentUserDetails,
 } from '../controllers/user.controllers.js';
 const userRouter = Router();
 
@@ -19,5 +24,13 @@ userRouter.route('/register').post(
 userRouter.route('/login').post(loginUser);
 userRouter.route('/logout').post(verifyJWT, logoutUser);
 userRouter.route('/refresh-token').post(refreshAccessToken);
-
+userRouter.route('/change-password').post(verifyJWT, changePassword);
+userRouter.route('/update').post(verifyJWT, updateAccountDetails);
+userRouter
+  .route('/update-avatar')
+  .post(verifyJWT, upload.single('avatar'), updateAvatarImage);
+userRouter
+  .route('/update-cover-image')
+  .post(verifyJWT, upload.single('coverImage'), updateCoverImage);
+userRouter.route('/details').get(verifyJWT, getCurrentUserDetails);
 export default userRouter;
