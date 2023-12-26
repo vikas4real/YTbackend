@@ -11,6 +11,8 @@ import {
   updateAvatarImage,
   updateCoverImage,
   getCurrentUserDetails,
+  getUserChannelProfile,
+  getWatchHistory,
 } from '../controllers/user.controllers.js';
 const userRouter = Router();
 
@@ -25,12 +27,15 @@ userRouter.route('/login').post(loginUser);
 userRouter.route('/logout').post(verifyJWT, logoutUser);
 userRouter.route('/refresh-token').post(refreshAccessToken);
 userRouter.route('/change-password').post(verifyJWT, changePassword);
-userRouter.route('/update').post(verifyJWT, updateAccountDetails);
+userRouter.route('/update-account').patch(verifyJWT, updateAccountDetails);
 userRouter
   .route('/update-avatar')
-  .post(verifyJWT, upload.single('avatar'), updateAvatarImage);
+  .patch(verifyJWT, upload.single('avatar'), updateAvatarImage);
 userRouter
   .route('/update-cover-image')
-  .post(verifyJWT, upload.single('coverImage'), updateCoverImage);
+  .patch(verifyJWT, upload.single('coverImage'), updateCoverImage);
 userRouter.route('/details').get(verifyJWT, getCurrentUserDetails);
+userRouter.route('/c/:username').get(verifyJWT, getUserChannelProfile);
+userRouter.route('/history').get(verifyJWT, getWatchHistory);
+
 export default userRouter;
