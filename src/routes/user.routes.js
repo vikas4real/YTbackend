@@ -25,7 +25,7 @@ userRouter.route('/register').post(
 );
 userRouter.route('/login').post(loginUser);
 userRouter.route('/logout').post(verifyJWT, logoutUser);
-userRouter.route('/refresh-token').post(refreshAccessToken);
+userRouter.route('/refresh-access-token').patch(verifyJWT, refreshAccessToken);
 userRouter.route('/change-password').post(verifyJWT, changePassword);
 userRouter.route('/update-account').patch(verifyJWT, updateAccountDetails);
 userRouter
@@ -35,7 +35,7 @@ userRouter
   .route('/update-cover-image')
   .patch(verifyJWT, upload.single('coverImage'), updateCoverImage);
 userRouter.route('/details').get(verifyJWT, getCurrentUserDetails);
-userRouter.route('/c/:username').get(verifyJWT, getUserChannelProfile);
+userRouter.route('/c/:username').get(getUserChannelProfile);
 userRouter.route('/history').get(verifyJWT, getWatchHistory);
 
 export default userRouter;

@@ -151,7 +151,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res, next) => {
   await User.findByIdAndUpdate(
     req.user._id,
-    { $set: { refreshToken: undefined } },
+    { $unset: { refreshToken: 1 } },
     { new: true }
   );
   const options = {
@@ -165,6 +165,7 @@ const logoutUser = asyncHandler(async (req, res, next) => {
     .json(new ApiResponse(200, 'User logged out successfully'));
 });
 
+//TODO: refresh Access Token has some issues
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =
     req.cookies.refreshToken || req.body.refreshToken;
@@ -349,10 +350,10 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     {
       $addFields: {
         subscribersCount: {
-          $size: 'subscribers',
+          $size: '$subscribers',
         },
         channelSubscribedToCount: {
-          $size: 'subscribedTo',
+          $size: '$subscribedTo',
         },
         isSubscribed: {
           $cond: {
